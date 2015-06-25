@@ -1,9 +1,13 @@
 In order to get up and running quickly, I built this sample NotesService Java application by starting with a Maven
 Archetype. Specifically, I used: jersey-quickstart-grizzly2 (version 2.18).
 
-It's very easy to test and run from the project root.
-To run-test, execute: mvn clean test
-To run, execute: mvn exec:java
+The REST implementation is provided by Jersey, an open source framework that meets JAX-RS specification. The JSON provider is MOXy (all but provided by Jersey and the Maven Archetype I selected). The archetype also includes Grizzly, a lightweight HTTP container. My sample code would need to be repackaged in order to run in a Servlet container (like Tomcat).
+
+It is very easy to test and run from the project root.
+To compile and execute the JUnit tests I have provided, 
+     execute: mvn clean test
+To start the application and embedded Grizzyly container, 
+     execute: mvn exec:java
 
 Grizzly is set to run on port 8080 by default.
 You may access the 'notes' API at http://localhost:8080/api/notes.
@@ -44,18 +48,18 @@ the exact partition (or segment) to search, and the query-parameter search would
 individually, but in parallel.
 
 How would you add security to your API?
-Hopefully, the security needs of the API would be based on an open standard. Jersey is a JAX-RS implementation that
-includes support for accessing a SecurityContext from the container.  If a custom security API is available, special
-code would have to be added to access and evaluate special header information included in the request.
+Hopefully, the security needs of the API would be based on an reputable standard. Jersey is a JAX-RS implementation that includes support for accessing a SecurityContext from the container. OAuth is also supported. If a custom security API is available, special code would have to be added to access and evaluate special header information included in the request. After the Authentication and Authorization is established, the notes themselves could be encrypted to increase privacy and security.
 
 What features should we add to this API next?
 I added update and delete functionality.
+I would add JavaDoc, next. I don't usually comment code unless I feel the need to explain somehting. But, I really
+prefer to have something like an API have documentation regarding purpose, usage, etc.
 
 How would you test the API?
 I included JUnit tests to cover many cases, including error cases. These test will actually stand up the Grizzly
 container and execute against the service directly. I originally wrote the tests to call directly against the Java, but
 after learning more about the maven archetype, I was happy to see that the service was actually being called as a web
-target.
+target. In this regard, it's really more of an integration test than a simple unit test.
 
 Comments:
 

@@ -39,7 +39,6 @@ How well does your note-searching-api scale or not scale? How would you make you
 My search is either a) fetching from a static HashMap by key (fast), or b) looping through the entire set of values (in the case of the query parameter). Admittedly, it is not deigned to scale. If designed for a distributed platform, I would have made the DAO responsible for scaling appropriate to the specific platform. For a distributed database, the distribution key for the table might be a hash of the object id, in which case the id-based search query would specify the exact partition (or segment) to search, and the query-parameter search would run against all the partitions individually, but in parallel.
 
 How would you add security to your API?
-<<<<<<< HEAD
 Hopefully, the security needs of the API would be based on an reputable standard. Jersey is a JAX-RS implementation that includes support for accessing a SecurityContext from the container. OAuth is also supported. If a custom security API is available, special code would have to be added to access and evaluate special header information included in the request. After the Authentication and Authorization is established, the notes themselves could be encrypted to increase privacy and security.
 
 What features should we add to this API next?
@@ -48,20 +47,7 @@ I would add JavaDoc, next. I don't usually comment code unless I feel the need t
 prefer to have something like an API have documentation regarding purpose, usage, etc.
 
 How would you test the API?
-I included JUnit tests to cover many cases, including error cases. These test will actually stand up the Grizzly
-container and execute against the service directly. I originally wrote the tests to call directly against the Java, but
-after learning more about the maven archetype, I was happy to see that the service was actually being called as a web
-target. In this regard, it's really more of an integration test than a simple unit test.
-=======
-Hopefully, the security needs of the API would be based on an open standard. Jersey is a JAX-RS implementation that includes support for accessing a SecurityContext from the container.  If a custom security API is available, special code would have to be added to access and evaluate special header information included in the request.
-
-What features should we add to this API next?
-I added update and delete functionality.
-A great next step would be documentation. Now that the functionality is proven and tested, it's a good time to make sure the API has good JavaDoc.
-
-How would you test the API?
-I included JUnit tests to cover many cases, including error cases. These test will actually stand up the Grizzly container and execute against the service directly. I originally wrote the tests to call directly against the Java, but after learning more about the maven archetype, I was happy to see that the service was actually being called as a web target.
->>>>>>> 1e3faf1e2b6c6be855bc8808e67132221ad6ef05
+I included JUnit tests to cover many cases, including error cases. These test will actually stand up the Grizzly container and execute against the service directly. I originally wrote the tests to call directly against the Java, but after learning more about the maven archetype, I was happy to see that the service was actually being called as a web target. In this regard, it's really more of an integration test than a simple unit test.
 
 Comments:
 

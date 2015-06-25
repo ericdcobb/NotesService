@@ -1,5 +1,4 @@
-In order to get up and running quickly, I built this sample NotesService Java application by starting with a Maven
-Archetype. Specifically, I used: jersey-quickstart-grizzly2 (version 2.18).
+In order to get up and running quickly, I built this sample NotesService Java application by starting with a Maven Archetype. Specifically, I used: jersey-quickstart-grizzly2 (version 2.18).
 
 It's very easy to test and run from the project root.
 To run-test, execute: mvn clean test
@@ -25,43 +24,30 @@ Implementation Notes:
 First, the service calls on to a simple NotesDAO meant for demo purposes, only.
 It manages the Note POJOs in a ConcurrentHashMap for in-memory access (Data will not persist after stopping the app).
 
-The REST implementation is completely contained in NotesService.java. If needed, it can be split into interface, API,
-and Impl at a later time.
+The REST implementation is completely contained in NotesService.java. If needed, it can be split into interface, API, and Impl at a later time.
 I included update and delete methods to complete the API functionality.
-I made an effort to include some basic error handling. Without any knowledge of local practice, I just tried to match
-the REST request with an appropriately typed Exception (with a status for the client).
-Included JUnit tests only cover the NotesService. I chose not to add coverage for the NotesDAO (the DAO is a throwaway
-to validate the NotesService implementation).
+I made an effort to include some basic error handling. Without any knowledge of local practice, I just tried to match the REST request with an appropriately typed Exception (with a status for the client).
+Included JUnit tests only cover the NotesService. I chose not to add coverage for the NotesDAO (the DAO is a throwaway to validate the NotesService implementation).
 
 Additional Questions (and  my answers):
 
 How well does your note-searching-api scale or not scale? How would you make your search more efficient?
-My search is either a) fetching from a static HashMap by key (fast), or b) looping through the entire set of values (in
-the case of the query parameter). Admittedly, it is not deigned to scale. If designed for a distributed platform, I
-would have made the DAO responsible for scaling appropriate to the specific platform. For a distributed database, the
-distribution key for the table might be a hash of the object id, in which case the id-based search query would specify
-the exact partition (or segment) to search, and the query-parameter search would run against all the partitions
-individually, but in parallel.
+My search is either a) fetching from a static HashMap by key (fast), or b) looping through the entire set of values (in the case of the query parameter). Admittedly, it is not deigned to scale. If designed for a distributed platform, I would have made the DAO responsible for scaling appropriate to the specific platform. For a distributed database, the distribution key for the table might be a hash of the object id, in which case the id-based search query would specify the exact partition (or segment) to search, and the query-parameter search would run against all the partitions individually, but in parallel.
 
 How would you add security to your API?
-Hopefully, the security needs of the API would be based on an open standard. Jersey is a JAX-RS implementation that
-includes support for accessing a SecurityContext from the container.  If a custom security API is available, special
-code would have to be added to access and evaluate special header information included in the request.
+Hopefully, the security needs of the API would be based on an open standard. Jersey is a JAX-RS implementation that includes support for accessing a SecurityContext from the container.  If a custom security API is available, special code would have to be added to access and evaluate special header information included in the request.
 
 What features should we add to this API next?
 I added update and delete functionality.
+A great next step would be documentation. Now that the functionality is proven and tested, it's a good time to make sure the API has good JavaDoc.
 
 How would you test the API?
-I included JUnit tests to cover many cases, including error cases. These test will actually stand up the Grizzly
-container and execute against the service directly. I originally wrote the tests to call directly against the Java, but
-after learning more about the maven archetype, I was happy to see that the service was actually being called as a web
-target.
+I included JUnit tests to cover many cases, including error cases. These test will actually stand up the Grizzly container and execute against the service directly. I originally wrote the tests to call directly against the Java, but after learning more about the maven archetype, I was happy to see that the service was actually being called as a web target.
 
 Comments:
 
 I had fun doing this! The first hurdle I faced was actually setting up a modern/current development environment.
-My hardware is really out of date. I ended up working on a Windows Vista machine.. far different from the Linux or
-Yosemite Mac environments I am used to!
+My hardware is really out of date. I ended up working on a Windows Vista machine.. far different from the Linux or Yosemite Mac environments I am used to!
 I have known about Maven archetypes for a while, but this is the first time I really tried to use them.
 Massive confusion set in when I tried to execute the first 'curl' command in the assignment document.
 I finally figured out that I needed to add a header for Content-Type.
